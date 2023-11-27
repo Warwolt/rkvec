@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define RK_VECTOR_IMPLEMENTATION
 #include "rkvec/rkvec.h"
 
 typedef struct {

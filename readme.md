@@ -8,10 +8,20 @@ into the vector just like an array.
 
 ## Usage
 
-A vector variable is created with `vec_t(type)` with `type` as the type of the
-items to store and a call to `vec_new()`. The vector must be freed with `vec_free()`.
+Add the `rkvec.h` header to your project, and in exactly _one_ file define the
+symbol `RK_VECTOR_IMPLEMENTATION` and include `rkvec.h`:
 
-Items are added to the vector with `vec_push`, that takes a pointer to the vector and the value to push.
+```C
+#define RK_VECTOR_IMPLEMENTATION
+#include "rkvec/rkvec.h"
+```
+
+A vector variable is created with `vec_t(type)` with `type` as the type of the
+items to store and a call to `vec_new()`. The vector must be freed with
+`vec_free()`.
+
+Items are added to the vector with `vec_push`, that takes a pointer to the
+vector and the value to push.
 
 The pushed items can then be accessed with `vec[index]`.
 

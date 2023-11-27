@@ -1,6 +1,3 @@
-#ifndef RK_VECTOR_H
-#define RK_VECTOR_H
-
 // This is free and unencumbered software released into the public domain.
 //
 // Anyone is free to copy, modify, publish, use, compile, sell, or
@@ -48,6 +45,9 @@
 //       printf("%d\n", vec[0]);
 //   }
 
+#ifndef RK_VECTOR_H
+#define RK_VECTOR_H
+
 #include <stdint.h>
 
 #ifndef RK_VECTOR_INITIAL_CAPACITY
@@ -83,7 +83,11 @@ typedef vec_t(char) vec_char_t;
 typedef vec_t(float) vec_float_t;
 typedef vec_t(double) vec_double_t;
 
+#endif /* RK_VECTOR_H */
+
 /* Vector implementation ---------------------------------------------------- */
+#ifdef RK_VECTOR_IMPLEMENTATION
+
 static inline void* _rkvec_malloc(size_t num_bytes) {
 	void* ptr = malloc(num_bytes);
 	if (!ptr) {
@@ -127,4 +131,4 @@ static inline void* _rkvec_from_array(size_t type_size, void* items, size_t num_
 	return vec;
 }
 
-#endif /* RK_VECTOR_H */
+#endif /* RK_VECTOR_IMPLEMENTATION */
