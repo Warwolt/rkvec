@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "rkvec/rkvec.h"
+
 #define TEST(name) \
 	printf("[test] %s\n", #name);
 
@@ -17,8 +19,11 @@
 	}
 
 int main(void) {
-	TEST(push) {
-		EXPECT_EQ(1, 2);
+	TEST(pushed_number_can_be_accessed) {
+		vec_int_t vec = vec_new(int);
+		vec_push(&vec, 123);
+		EXPECT_EQ(vec[0], 123);
+		vec_free(&vec);
 	}
 
 	printf("All tests passed\n");
