@@ -27,34 +27,34 @@ typedef struct {
 
 int main(void) {
 	TEST(numbers_can_be_pushed) {
-		vec_int_t vec = vec_new();
+		vec_t(int) vec = vec_new();
 
-		vec_push(&vec, 123);
+		vec_push(vec, 123);
 
 		EXPECT_EQ(vec[0], 123);
 
-		vec_free(&vec);
+		vec_free(vec);
 	}
 
 	TEST(structs_can_be_pushed) {
 		vec_t(point_t) vec = vec_new();
 
-		vec_push(&vec, (point_t) { .x = 1, .y = 2 });
+		vec_push(vec, (point_t) { .x = 1, .y = 2 });
 
 		EXPECT_EQ(vec[0].x, 1);
 		EXPECT_EQ(vec[0].y, 2);
 
-		vec_free(&vec);
+		vec_free(vec);
 	}
 
 	TEST(vector_can_be_initialized_from_int_array) {
-		vec_int_t vec = vec_from(int, { 1, 2, 3 });
+		vec_t(int) vec = vec_from(int, { 1, 2, 3 });
 
 		EXPECT_EQ(vec[0], 1);
 		EXPECT_EQ(vec[1], 2);
 		EXPECT_EQ(vec[2], 3);
 
-		vec_free(&vec);
+		vec_free(vec);
 	}
 
 	TEST(vector_can_be_initialized_from_struct_array) {
@@ -64,7 +64,7 @@ int main(void) {
 		EXPECT_EQ(vec[1].x, 3);
 		EXPECT_EQ(vec[2].x, 5);
 
-		vec_free(&vec);
+		vec_free(vec);
 	}
 
 	printf("All tests passed\n");

@@ -1,6 +1,6 @@
 # RK Vec
 
-An STB-style single header vector implementation for C.
+A fork of the dynamic array in [stb_ds](https://github.com/nothings/stb/blob/master/stb_ds.h).
 
 The vector is stored on the heap with length and capacity followed by all items,
 with the vector represented by a pointer to the items. This allows for indexing
@@ -27,15 +27,9 @@ The pushed items can then be accessed with `vec[index]`.
 
 ```C
 vec_t(int) vec = vec_new();
-vec_push(&vec, 123);
+vec_push(vec, 123);
 printf("%d\n", vec[0]);
-vec_free(&vec);
-```
-
-The vector can also be created with an initializer list:
-
-```C
-vec_t(float) vec = vec_from(float, { 1.0, 2.0, 3.0 });
+vec_free(vec);
 ```
 
 ## See also
