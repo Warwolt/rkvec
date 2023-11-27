@@ -49,6 +49,9 @@
 #define RK_VECTOR_H
 
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifndef RK_VECTOR_INITIAL_CAPACITY
 #define RK_VECTOR_INITIAL_CAPACITY 10
@@ -76,6 +79,8 @@ typedef struct {
 		*(vec)[header->length] = __VA_ARGS__;                                                             \
 		header->length += 1;                                                                              \
 	} while (0)
+#define vec_length(vec) _rkvec_header(*(vec))->length
+#define vec_capacity(vec) _rkvec_header(*(vec))->capacity
 
 typedef vec_t(char*) vec_str_t;
 typedef vec_t(int) vec_int_t;
