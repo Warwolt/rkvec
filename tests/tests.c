@@ -4,6 +4,11 @@
 
 #include "rkvec/rkvec.h"
 
+typedef struct {
+	int x;
+	int y;
+} point_t;
+
 #define TEST(name) \
 	printf("[test] %s\n", #name);
 
@@ -19,10 +24,22 @@
 	}
 
 int main(void) {
-	TEST(pushed_number_can_be_accessed) {
-		vec_int_t vec = vec_new(int);
+	TEST(numbers_can_be_pushed) {
+		vec_int_t vec = vec_new();
+
 		vec_push(&vec, 123);
+
 		EXPECT_EQ(vec[0], 123);
+		vec_free(&vec);
+	}
+
+	TEST(structs_can_be_pushed) {
+		vec_t(point_t) vec = vec_new();
+
+		vec_push(&vec, (point_t) { .x = 1, .y = 2 });
+
+		EXPECT_EQ(vec[0].x, 1);
+		EXPECT_EQ(vec[0].y, 2);
 		vec_free(&vec);
 	}
 
