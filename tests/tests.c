@@ -1,3 +1,4 @@
+#include <memory.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,6 +31,7 @@ int main(void) {
 		vec_push(&vec, 123);
 
 		EXPECT_EQ(vec[0], 123);
+
 		vec_free(&vec);
 	}
 
@@ -40,6 +42,27 @@ int main(void) {
 
 		EXPECT_EQ(vec[0].x, 1);
 		EXPECT_EQ(vec[0].y, 2);
+
+		vec_free(&vec);
+	}
+
+	TEST(vector_can_be_initialized_from_int_array) {
+		vec_int_t vec = vec_from(int, { 1, 2, 3 });
+
+		EXPECT_EQ(vec[0], 1);
+		EXPECT_EQ(vec[1], 2);
+		EXPECT_EQ(vec[2], 3);
+
+		vec_free(&vec);
+	}
+
+	TEST(vector_can_be_initialized_from_struct_array) {
+		vec_t(point_t) vec = vec_from(point_t, { { 1, 2 }, { 3, 4 }, { 5, 6 } });
+
+		EXPECT_EQ(vec[0].x, 1);
+		EXPECT_EQ(vec[1].x, 3);
+		EXPECT_EQ(vec[2].x, 5);
+
 		vec_free(&vec);
 	}
 
