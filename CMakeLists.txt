@@ -8,4 +8,4 @@ else()
     add_compile_definitions(-Wall -Wextra -Wpedantic -Werror)
 endif()
 
-add_executable(${PROJECT_NAME} src/main.c)
+add_executable("${PROJECT_NAME}_test" tests/tests.c)
