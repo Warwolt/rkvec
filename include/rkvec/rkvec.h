@@ -285,25 +285,13 @@ typedef struct
 #define RK_ASSERT(x) ((void)0)
 #endif
 
-#ifdef RK_STATISTICS
-#define RK_STATS(x) x
-size_t rk_vector_grow;
-#else
-#define RK_STATS(x)
-#endif
-
 //
 // rk_vec implementation
 //
 
-//int *prev_allocs[65536];
-//int num_prev;
-
 void* rk_vec_growf(void* vec, size_t elem_size, size_t addlen, size_t min_cap) {
-	rk_vector_header temp = { 0 }; // force debugging
-	void* b;
+	void* new_vec;
 	size_t min_len = rk_vec_len(vec) + addlen;
-	(void)sizeof(temp);
 
 	// compute the minimum capacity needed
 	if (min_len > min_cap)
@@ -318,22 +306,16 @@ void* rk_vec_growf(void* vec, size_t elem_size, size_t addlen, size_t min_cap) {
 	else if (min_cap < 4)
 		min_cap = 4;
 
-	//if (num_prev < 65536) if (vec) prev_allocs[num_prev++] = (int *) ((char *) vec+1);
-	//if (num_prev == 2201)
-	//  num_prev = num_prev;
-	b = RK_REALLOC(NULL, (vec) ? rk_header(vec) : 0, elem_size * min_cap + sizeof(rk_vector_header));
-	//if (num_prev < 65536) prev_allocs[num_prev++] = (int *) (char *) b;
-	b = (char*)b + sizeof(rk_vector_header);
+	new_vec = RK_REALLOC(NULL, (vec) ? rk_header(vec) : 0, elem_size * min_cap + sizeof(rk_vector_header));
+	new_vec = (char*)new_vec + sizeof(rk_vector_header);
 	if (vec == NULL) {
-		rk_header(b)->length = 0;
-		rk_header(b)->hash_table = 0;
-		rk_header(b)->temp = 0;
-	} else {
-		RK_STATS(++rk_vector_grow);
+		rk_header(new_vec)->length = 0;
+		rk_header(new_vec)->hash_table = 0;
+		rk_header(new_vec)->temp = 0;
 	}
-	rk_header(b)->capacity = min_cap;
+	rk_header(new_vec)->capacity = min_cap;
 
-	return b;
+	return new_vec;
 }
 
 void* rk_vec_from_array(void* array, size_t array_len, size_t elem_size) {
