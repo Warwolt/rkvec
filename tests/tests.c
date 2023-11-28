@@ -11,6 +11,8 @@ typedef struct {
 	int y;
 } point_t;
 
+typedef vec_t(int) vec_int_t;
+
 #define TEST(name) \
 	printf("[test] %s\n", #name);
 
@@ -25,13 +27,29 @@ typedef struct {
 		}                                                                                                                     \
 	}
 
+void push_numbers(vec_int_t* vec, int min, int max) {
+	for (int i = min; i < max; i++)
+		vec_push(*vec, i);
+}
+
 int main(void) {
-	TEST(numbers_can_be_pushed) {
+	TEST(one_number_can_be_pushed) {
 		vec_t(int) vec = vec_new();
 
 		vec_push(vec, 123);
 
 		EXPECT_EQ(vec[0], 123);
+
+		vec_free(vec);
+	}
+
+	TEST(numbers_can_be_pushed) {
+		vec_int_t vec = vec_new();
+
+		push_numbers(&vec, 0, 100);
+
+		EXPECT_EQ(vec[0], 0);
+		EXPECT_EQ(vec[99], 99);
 
 		vec_free(vec);
 	}
